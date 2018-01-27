@@ -155,4 +155,4 @@ mod tmp;
 mod walk;
 
 pub use tmp::PathTmp;
-pub use walk::{PathDirWalk, WalkBuild};
+pub use walk::{PathDirWalk, WalkBuild, PathDirEntry};
