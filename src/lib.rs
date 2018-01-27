@@ -113,15 +113,8 @@
 //! Similarly to walkdir, this is a direct export of the `tar` crate. It is recommended that you
 //! use the types like `PathDir` and `FileWrite` when interacting with this crate.
 //!
-//! > TODO: Add two "80%" methods:
-//! >
-//! > - `pack_tar(obj: Write, dir: &PathDir, src: Option<Path>)`: tars the `dir` into the `obj`,
-//! >   using `walkdir` under the hood for speed and giving pretty error messages for all errors.
-//! > - `unpack_tar(obj: Read, dst: &PathDir)`: npacks the contents tarball into the specified dst
-//! >   with cleaner error messages.
-//! >
-//! > Or... maybe consider just pretifying the error messages within the `tar` crate. Maybe they
-//! > would be interested in using `path_abs` under the hood?
+//! > TODO: improve tar error messages. See
+//! > [this issue](https://github.com/alexcrichton/tar-rs/issues/128)
 //!
 //! ```rust
 //! # extern crate ergo_fs;
@@ -147,17 +140,19 @@
 pub extern crate std_prelude;
 pub extern crate tempdir;
 pub extern crate path_abs;
-
-// -------------------------------
-// External Crate Exports
 pub extern crate tar;
 pub extern crate walkdir;
 
+// -------------------------------
+// External Crate Exports
+
 pub use std_prelude::*;
 pub use path_abs::{PathAbs, PathArc, PathFile, PathDir, PathType, FileRead, FileWrite, FileEdit};
-pub use walkdir::{WalkDir, Error as WalkError};
 
 // -------------------------------
 // Local Modules and Exports
 mod tmp;
+mod walk;
+
 pub use tmp::PathTmp;
+pub use walk::{PathDirWalk, WalkBuild};
